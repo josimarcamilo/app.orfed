@@ -17,6 +17,7 @@
                 <th>Id</th>
                 <th>Codigo</th>
                 <th>Referencia</th>
+                <th>Dashboard</th>
                 <th></th>
             </tr>
         </thead>
@@ -26,6 +27,9 @@
                     <td>{{ $row->id }}</td>
                     <td>{{ $row->cod }}</td>
                     <td>{{ $row->reference }}</td>
+                    <td>
+                        <a wire:navigate href="/accounts/{{$account->id}}/budgets/{{$row->id}}">Orcamentos</a>
+                    </td>
                     <td>
                         <button 
                             type="button"
