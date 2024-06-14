@@ -17,6 +17,7 @@
                 <th>Id</th>
                 <th>Codigo</th>
                 <th>Description</th>
+                <th>Orcamentos</th>
                 <th></th>
             </tr>
         </thead>
@@ -26,6 +27,9 @@
                     <td>{{ $account->id }}</td>
                     <td>{{ $account->cod }}</td>
                     <td>{{ $account->description }}</td>
+                    <td>
+                        <a href="/accounts/{{$account->id}}/budgets">Orcamentos</a>
+                    </td>
                     <td>
                         <button 
                             type="button"

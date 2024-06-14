@@ -41,7 +41,7 @@ class Accounts extends Component
     public function render()
     {
         return view('livewire.accounts',[
-            'accounts' => Account::where('user_id', auth()->id())->get()
+            'accounts' => $this->accounts
         ]);
     }
 }
