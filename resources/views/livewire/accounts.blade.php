@@ -3,7 +3,7 @@
     <form wire:submit="create()">
         <label>
             <span>Description</span>
-            <input wire:model="description" type="text" required>
+            <input wire:model="description" type="text" required autofocus>
             @error('description') <em> {{ $message }} </em> @enderror
         </label>
         <button type="submit">Criar</button>

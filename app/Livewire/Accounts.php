@@ -28,7 +28,7 @@ class Accounts extends Component
         $account->description = $this->description;
         $account->save();
 
-        $this->redirect('accounts');
+        $this->redirect('accounts', true);
     }
 
     public function delete(Account $account)
@@ -40,7 +40,6 @@ class Accounts extends Component
 
     public function render()
     {
-        // dd(55);
         return view('livewire.accounts',[
             'accounts' => Account::where('user_id', auth()->id())->get()
         ]);
