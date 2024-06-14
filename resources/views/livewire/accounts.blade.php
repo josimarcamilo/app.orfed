@@ -28,7 +28,7 @@
                     <td>{{ $account->cod }}</td>
                     <td>{{ $account->description }}</td>
                     <td>
-                        <a href="/accounts/{{$account->id}}/budgets">Orcamentos</a>
+                        <a wire:navigate href="/accounts/{{$account->id}}/budgets">Orcamentos</a>
                     </td>
                     <td>
                         <button 

@@ -10,7 +10,6 @@
     <body>
         <nav>
             <a wire:navigate href="/accounts" @class(['current' => request()->is('accounts')])>Contas</a>
-            <a href="/accounts" @class(['current' => request()->is('accounts')])>Contas</a>
         </nav>
 
         {{ $slot }}
