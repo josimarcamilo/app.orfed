@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('accounts', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
+            $table->string('cod')->unique()->index();
             $table->foreignId('user_id')->constrained()->index()->cascadeOnDelete();
             $table->string('description');
         });
