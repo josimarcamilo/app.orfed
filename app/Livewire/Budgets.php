@@ -4,8 +4,10 @@ namespace App\Livewire;
 
 use App\Models\Account;
 use App\Models\Budget;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 
+#[Title('Orçamentos')]
 class Budgets extends Component
 {
     public $reference;

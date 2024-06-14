@@ -3,8 +3,10 @@
 namespace App\Livewire;
 
 use App\Models\Account;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 
+#[Title('Minhas contas')]
 class Accounts extends Component
 {
     public $accounts;
