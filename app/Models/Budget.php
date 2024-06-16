@@ -13,4 +13,14 @@ class Budget extends Model
     {
         return $this->hasMany(Category::class);
     }
+
+    public function entries()
+    {
+        return $this->hasMany(Extract::class)->where('type', Extract::ENTRY);
+    }
+
+    public function exits()
+    {
+        return $this->hasMany(Extract::class)->where('type', Extract::EXIT);
+    }
 }
