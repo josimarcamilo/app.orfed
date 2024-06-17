@@ -23,4 +23,9 @@ class Budget extends Model
     {
         return $this->hasMany(Extract::class)->where('type', Extract::EXIT);
     }
+
+    public function balance()
+    {
+        return $this->entries()->sum('amount') - $this->exits()->sum('amount');
+    }
 }

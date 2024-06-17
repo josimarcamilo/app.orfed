@@ -11,4 +11,8 @@ class Extract extends Model
 
     const ENTRY = 1;
     const EXIT = 2;
+
+    protected $casts = [
+        'date' => 'datetime'
+    ];
 }

@@ -1,5 +1,6 @@
 <div>
     <h1>Dashboard Budget {{ $budget->id }}</h1>
+    <h2>Saldo: {{ $balance }}</h2>
     <h2>Categorias</h2>
     <div>
         <form wire:submit="createCategory()">
@@ -38,7 +39,20 @@
         </table>
     </div>
 
-    <h2>Receitas</h2>
+    <h2>Importar extrato</h2>
+    <div>
+        <form wire:submit="importExtract()">
+            <label>
+                <span>Selecione um extrato .csv</span>
+                <input wire:model="extractFile" type="file" accept=".csv" required>
+                @error('extractFile') <em> {{ $message }} </em> @enderror
+            </label>
+            <button type="submit">Criar</button>
+        </form>
+    </div>
+
+
+    <h2>Receitas | {{ $budget->entries()->sum('amount') }}</h2>
     <div>
         <form wire:submit="createEntry()">
             <label>
@@ -47,7 +61,7 @@
                 @error('entryDescription') <em> {{ $message }} </em> @enderror
             </label>
             <label>
-                <span>Descricao</span>
+                <span>Valor em centavos</span>
                 <input wire:model="entryAmount" type="text" required>
                 @error('entryAmount') <em> {{ $message }} </em> @enderror
             </label>
@@ -57,6 +71,7 @@
             <thead>
                 <tr>
                     <th>Id</th>
+                    <th>Data</th>
                     <th>Descricao</th>
                     <th>Amount</th>
                     <th></th>
@@ -66,6 +81,7 @@
                 @foreach ($entries as $entry)
                     <tr wire:key="{{ $entry->id }}">
                         <td>{{ $entry->id }}</td>
+                        <td>{{ $entry->date?->format('d/m/Y') }}</td>
                         <td>{{ $entry->description }}</td>
                         <td>{{ $entry->amount }}</td>
                         <td>
@@ -80,8 +96,51 @@
             </tbody>
         </table>
     </div>
-    
-    <h2>Despesas</h2>
+
+    <h2>Despesas | {{ $budget->exits()->sum('amount') }}</h2>
+    <div>
+        {{-- <form wire:submit="createEntry()">
+            <label>
+                <span>Descricao</span>
+                <input wire:model="entryDescription" type="text" required>
+                @error('entryDescription') <em> {{ $message }} </em> @enderror
+            </label>
+            <label>
+                <span>Descricao</span>
+                <input wire:model="entryAmount" type="text" required>
+                @error('entryAmount') <em> {{ $message }} </em> @enderror
+            </label>
+            <button type="submit">Criar</button>
+        </form> --}}
+        <table>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Data</th>
+                    <th>Descricao</th>
+                    <th>Amount</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($exits as $entry)
+                    <tr wire:key="{{ $entry->id }}">
+                        <td>{{ $entry->id }}</td>
+                        <td>{{ $entry->date?->format('d/m/Y') }}</td>
+                        <td>{{ $entry->description }}</td>
+                        <td>{{ $entry->amount }}</td>
+                        <td>
+                            <button 
+                                type="button"
+                                wire:click="deleteExtract({{$entry->id}})"
+                                wire:confirm="Deseja realmente excluir?"
+                            >Delete</button>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
     <h2>Despesas por categoria</h2>
     <h2>Gráfico</h2>
 </div>

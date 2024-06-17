@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('budget_id')->constrained()->cascadeOnDelete();
             $table->foreignId('category_id')->nullable()->constrained()->nullOnDelete();
             $table->string('cod')->unique()->index();
+            $table->dateTime('date')->nullable();
             $table->string('description');
             $table->integer('amount');
             $table->string('external_id')->nullable()->index();
