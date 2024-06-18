@@ -124,10 +124,11 @@
             </thead>
             <tbody>
                 @foreach ($exits as $entry)
-                    <tr wire:key="{{ $entry->id }}">
+                    <tr wire:key="{{ $entry->id }}" x-data="{ edit: false, model: {{$entry}}, toggle() {this.edit = !this.edit; console.log(this.model, this.edit)} }">
                         <td>{{ $entry->id }}</td>
                         <td>{{ $entry->date?->format('d/m/Y') }}</td>
-                        <td>{{ $entry->description }}</td>
+                        <td x-show="!edit" x-on:click="toggle()" x-text="model.description"></td>
+                        <td x-show="edit"><input @click.outside="toggle();console.log(model.description)" x-model="model.description" style="width: 100%;" type="text" value="{{ $entry->description }}"></td>
                         <td>{{ $entry->amount }}</td>
                         <td>
                             <button 
