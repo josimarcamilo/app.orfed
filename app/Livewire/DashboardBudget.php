@@ -74,6 +74,16 @@ class DashboardBudget extends Component
         $this->redirect('/accounts/'.$this->account->id.'/budgets/'.$this->budget->id, true);
     }
 
+    public function updateExtract(Extract $extract, array $data)
+    {
+        //policy
+        $extract->description = $data['description'];
+        $extract->amount = $data['amount'];
+        $extract->date = $data['date'];
+        $extract->category_id = $data['category_id'];
+        $extract->save();
+    }
+
     public function deleteExtract(Extract $extract)
     {
         //policy
