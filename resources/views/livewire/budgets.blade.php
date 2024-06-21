@@ -26,9 +26,9 @@
                 <tr wire:key="{{ $row->id }}">
                     <td>{{ $row->id }}</td>
                     <td>{{ $row->cod }}</td>
-                    <td>{{ $row->reference }}</td>
+                    <td>{{ $row->reference->translatedFormat('F - Y') }}</td>
                     <td>
-                        <a wire:navigate href="/accounts/{{$account->id}}/budgets/{{$row->id}}">Orcamentos</a>
+                        <a wire:navigate href="/accounts/{{$account->id}}/budgets/{{$row->id}}">Gerenciar</a>
                     </td>
                     <td>
                         <button 

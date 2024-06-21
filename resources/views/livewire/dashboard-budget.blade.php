@@ -42,6 +42,11 @@
     <h2>Importar extrato</h2>
     <div>
         <form wire:submit="importExtract()">
+            <label for="bank">Instituição financeira:</label>
+
+            <select name="bank" id="bank">
+                <option value="nubank">Nubank</option>
+            </select>
             <label>
                 <span>Selecione um extrato .csv</span>
                 <input wire:model="extractFile" type="file" accept=".csv" required>
@@ -79,11 +84,13 @@
             </thead>
             <tbody>
                 @foreach ($entries as $entry)
-                    <tr wire:key="{{ $entry->id }}">
+                    <tr wire:key="{{ $entry->id }}" x-data="{ editDescription: false, editAmount: false, model: {{$entry}}, update() {$wire.updateExtract(this.model.id, this.model); this.editDescription = false; this.editAmount = false;} }">
                         <td>{{ $entry->id }}</td>
                         <td>{{ $entry->date?->format('d/m/Y') }}</td>
-                        <td>{{ $entry->description }}</td>
-                        <td>{{ $entry->amount }}</td>
+                        <td x-show="!editDescription" x-on:click="editDescription = !editDescription" x-text="model.description"></td>
+                        <td x-show="editDescription"><input @keydown.enter="update()" @click.outside="update()" x-model="model.description" style="width: 100%;" type="text" x-text="model.description"></td>
+                        <td x-show="!editAmount" x-on:click="editAmount = !editAmount" x-text="model.amount"></td>
+                        <td x-show="editAmount"><input @keydown.enter="update()" @click.outside="update()" x-model="model.amount" type="text" x-text="model.amount"></td>
                         <td>
                             <button 
                                 type="button"

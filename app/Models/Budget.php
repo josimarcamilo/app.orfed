@@ -9,6 +9,10 @@ class Budget extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'reference' => 'datetime'
+    ];
+
     public function categories()
     {
         return $this->hasMany(Category::class);
