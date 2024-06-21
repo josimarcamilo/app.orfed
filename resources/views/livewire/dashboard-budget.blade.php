@@ -124,12 +124,13 @@
             </thead>
             <tbody>
                 @foreach ($exits as $entry)
-                    <tr wire:key="{{ $entry->id }}" x-data="{ edit: false, model: {{$entry}}, toggle() {this.edit = !this.edit; console.log(this.model, this.edit); $wire.updateExtract(this.model.id, this.model);} }">
+                    <tr wire:key="{{ $entry->id }}" x-data="{ editDescription: false, editAmount: false, model: {{$entry}}, update() {$wire.updateExtract(this.model.id, this.model); this.editDescription = false; this.editAmount = false;} }">
                         <td>{{ $entry->id }}</td>
                         <td>{{ $entry->date?->format('d/m/Y') }}</td>
-                        <td x-show="!edit" x-on:click="edit = !edit" x-text="model.description"></td>
-                        <td x-show="edit"><input @keydown.enter="toggle()" @click.outside="toggle()" x-model="model.description" style="width: 100%;" type="text" value="{{ $entry->description }}"></td>
-                        <td>{{ $entry->amount }}</td>
+                        <td x-show="!editDescription" x-on:click="editDescription = !editDescription" x-text="model.description"></td>
+                        <td x-show="editDescription"><input @keydown.enter="update()" @click.outside="update()" x-model="model.description" style="width: 100%;" type="text" x-text="model.description"></td>
+                        <td x-show="!editAmount" x-on:click="editAmount = !editAmount" x-text="model.amount"></td>
+                        <td x-show="editAmount"><input @keydown.enter="update()" @click.outside="update()" x-model="model.amount" type="text" x-text="model.amount"></td>
                         <td>
                             <button 
                                 type="button"
