@@ -77,11 +77,27 @@ class DashboardBudget extends Component
     public function updateExtract(Extract $extract, array $data)
     {
         //policy
+
+        $category = $extract->category;
+
+        if($data['category_id'] == 'selecione'){
+            $data['category_id'] = null;
+        }
         $extract->description = $data['description'];
         $extract->amount = $data['amount'];
         $extract->date = $data['date'];
         $extract->category_id = $data['category_id'];
         $extract->save();
+
+        if($extract->category_id){
+            $extract->refresh();
+
+            $extract->category->sumValueReal();
+        }
+
+        if($category){
+            $category->sumValueReal();
+        }
     }
 
     public function deleteExtract(Extract $extract)

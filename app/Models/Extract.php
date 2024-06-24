@@ -15,4 +15,9 @@ class Extract extends Model
     protected $casts = [
         'date' => 'datetime'
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
 }
