@@ -3,6 +3,7 @@
 use App\Livewire\Accounts;
 use App\Livewire\DashboardBudget;
 use App\Livewire\Budgets;
+use App\Models\BraipWebhook;
 use App\Models\WhatsAppWebhook;
 use Illuminate\Support\Facades\Route;
 
@@ -13,6 +14,16 @@ Route::get('/hooks-whatsapp', function(){
 
 Route::post('/hooks-whatsapp', function(){
     $model = new WhatsAppWebhook();
+    $model->saveWebhook(request()->all());
+});
+
+Route::get('/hooks-braip', function(){
+    $model = new BraipWebhook();
+    $model->saveWebhook(request()->all());
+});
+
+Route::post('/hooks-braip', function(){
+    $model = new BraipWebhook();
     $model->saveWebhook(request()->all());
 });
 

@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\WhatsAppWebhook;
+use App\Models\BraipWebhook;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,11 +12,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('whatsapp_webhooks', function (Blueprint $table) {
+        Schema::create('braip_webhooks', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->json('payload');
-            $table->smallInteger('status')->default(WhatsAppWebhook::STATUS_PENDING)->index();
+            $table->smallInteger('status')->default(BraipWebhook::STATUS_PENDING)->index();
         });
     }
 
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('whatsapp_webhooks');
+        Schema::dropIfExists('braip_webhooks');
     }
 };
