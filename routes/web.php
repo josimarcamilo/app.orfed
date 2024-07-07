@@ -10,21 +10,29 @@ use Illuminate\Support\Facades\Route;
 Route::get('/hooks-whatsapp', function(){
     $model = new WhatsAppWebhook();
     $model->saveWebhook(request()->all());
+
+    return response()->json();
 });
 
 Route::post('/hooks-whatsapp', function(){
     $model = new WhatsAppWebhook();
     $model->saveWebhook(request()->all());
+
+    return response()->json();
 });
 
 Route::get('/hooks-braip', function(){
     $model = new BraipWebhook();
     $model->saveWebhook(request()->all());
+
+    return response()->json();
 });
 
 Route::post('/hooks-braip', function(){
     $model = new BraipWebhook();
     $model->saveWebhook(request()->all());
+
+    return response()->json();
 });
 
 Route::get('/accounts', Accounts::class)->middleware('auth')->name('home');
