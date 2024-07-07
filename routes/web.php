@@ -11,7 +11,9 @@ Route::get('/hooks-whatsapp', function(){
     $model = new WhatsAppWebhook();
     $model->saveWebhook(request()->all());
 
-    return response()->json();
+    if(request()->hub_challenge){
+        return request()->hub_challenge;
+    }
 });
 
 Route::post('/hooks-whatsapp', function(){
