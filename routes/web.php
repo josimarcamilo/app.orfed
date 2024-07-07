@@ -7,6 +7,8 @@ use App\Models\BraipWebhook;
 use App\Models\WhatsAppWebhook;
 use Illuminate\Support\Facades\Route;
 
+Route::view('/politica-privacidade', 'politica-privacidade');
+
 Route::get('/hooks-whatsapp', function(){
     $model = new WhatsAppWebhook();
     $model->saveWebhook(request()->all());
