@@ -2,7 +2,18 @@
 # SSH
 ```bash
 ssh -p 2222 orfedc83@162.241.2.77
+cd app.orfed.repo/
 ```
+# Funcionalidades
+- [] Gerenciamento financeiro
+    - [x] Gerenciar categorias
+- [] Instalacao de aplicativos como forma de integracao
+    - [] Braip
+    - [] Correios
+    - [] Notas fiscais
+    - [] Whatsapp
+    - [] CRM WhatsApp
+    - [] Dashboard de vendas
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
