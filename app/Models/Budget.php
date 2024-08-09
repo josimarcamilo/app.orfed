@@ -9,9 +9,17 @@ class Budget extends Model
 {
     use HasFactory;
 
-    protected $casts = [
-        'reference' => 'datetime'
+    protected $fillable = [
+        'description',
     ];
+
+    protected static function booted(): void
+    {
+        static::creating(function (Budget $model) {
+            $model->account_id = auth()->user()->account->id;
+            $model->cod = uniqid('bud_');
+        });
+    }
 
     public function categories()
     {

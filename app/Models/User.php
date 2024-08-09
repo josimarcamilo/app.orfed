@@ -34,6 +34,15 @@ class User extends Authenticatable implements FilamentUser
         'remember_token',
     ];
 
+    protected static function booted(): void
+    {
+        static::created(function (User $model) {
+            $model->account()->create([
+                'description' => $model->name
+            ]);
+        });
+    }
+
     public function canAccessPanel(Panel $panel): bool
     {
         return true;
