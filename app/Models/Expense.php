@@ -6,23 +6,24 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model
+class Expense extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'account_id',
-        'cod',
+        'budget_id',
+        'category_id',
         'description',
-        'planned',
-        'real'
+        'status',
+        'amount'
     ];
 
     protected static function booted(): void
     {
-        static::creating(function (Category $model) {
+        static::creating(function ($model) {
             $model->account_id = auth()->user()->account->id;
-            $model->cod = uniqid('cat_');
+            $model->cod = uniqid('exp_');
         });
     }
 
@@ -31,15 +32,13 @@ class Category extends Model
         $query->where('account_id', auth()->user()->account->id);
     }
 
-    public function extracts()
+    public function budget()
     {
-        return $this->hasMany(Extract::class);
+        return $this->belongsTo(Budget::class);
     }
 
-    public function sumValueReal()
+    public function category()
     {
-        $total = $this->extracts()->sum('amount');
-        $this->real = $total;
-        $this->save();
+        return $this->belongsTo(Category::class);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -19,6 +20,11 @@ class Budget extends Model
             $model->account_id = auth()->user()->account->id;
             $model->cod = uniqid('bud_');
         });
+    }
+
+    public function scopeMyAccount(Builder $query): void
+    {
+        $query->where('account_id', auth()->user()->account->id);
     }
 
     public function categories()
