@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ExpenseResource\Pages;
-use App\Filament\Resources\ExpenseResource\RelationManagers;
 use App\Filament\Resources\ExpenseResource\Widgets\ExpensesByCategory;
 use App\Models\Expense;
 use Filament\Forms;
@@ -12,8 +11,6 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ExpenseResource extends Resource
 {
@@ -51,7 +48,6 @@ class ExpenseResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('cod'),
                 Tables\Columns\TextColumn::make('description')->label('Descrição')->searchable(),
                 Tables\Columns\TextColumn::make('category.description')->label('Categoria')
                     ,

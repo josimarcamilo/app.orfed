@@ -3,10 +3,9 @@
 namespace App\Filament\Resources\ExpenseResource\Widgets;
 
 use App\Models\Budget;
+use App\Models\Category;
 use App\Models\Expense;
 use Filament\Widgets\ChartWidget;
-use Flowframe\Trend\Trend;
-use Flowframe\Trend\TrendValue;
 use Illuminate\Support\Facades\DB;
 
 class ExpensesByCategory extends ChartWidget
@@ -21,21 +20,34 @@ class ExpensesByCategory extends ChartWidget
             $budgetId = array_key_first($this->getFilters());
         }
 
-        $data = Expense::with('category:id,description')
-            ->where('budget_id', $budgetId)
-            ->select(DB::raw('category_id, sum(amount) as Total'))
-            ->groupBy(['category_id'])
+        $categories = Category::myAccount()
+            ->orderBy('description', 'desc')
+            ->get();
+
+        $data = Expense::where('budget_id', $budgetId)
+            ->select(DB::raw('category_id, status, sum(amount) as Total'))
+            ->groupBy(['category_id', 'status'])
             ->orderBy('Total', 'desc')
             ->get();
 
         return [
             'datasets' => [
                 [
-                    'label' => 'Bloeg posts created',
-                    'data' => $data->map(fn ($row) => $row->Total),
+                    'label' => 'Despesas pagas',
+                    'data' => $categories->map(function ($category) use($data) { 
+                         $row = $data->where('category_id', $category->id)->where('status', 2)->first();
+                         return $row ? $row->Total : 0;
+                    }),
+                ],
+                [
+                    'label' => 'Despesas pendentes',
+                    'data' => $categories->map(function ($category) use($data) { 
+                         $row = $data->where('category_id', $category->id)->where('status', 1)->first();
+                         return $row ? $row->Total : 0;
+                    }),
                 ],
             ],
-            'labels' => $data->map(fn ($row) => $row->category->description),
+            'labels' => $categories->map(fn ($row) => $row->description),
         ];
     }
 
